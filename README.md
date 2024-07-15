@@ -5,6 +5,7 @@ This repository will contain the following: Code for the optomization of the wir
 
 There is no licensing, copyrights, etc involved. Feel free to use and reproduce this however you wish!
 
+A video guide will be coming soon. Stay tuned!
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 To fully set this up from scratch, you will first need to install wireshark. You should first update your installer via the apt update command, and then use apt install wireshark to complete the installation. 
