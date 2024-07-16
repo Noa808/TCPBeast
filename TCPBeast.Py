@@ -11,139 +11,19 @@ def filter_stream(stream): #Defines our function to filter lines from the stream
 	inside_random_section = False
 
 	lines = stream.splitlines() #Splits the stream into individual lines
+	ignore_starts = set('0123456789!@#$%^&*()-_+{[}],<>?/|~`') #Defines our rule for filtering out any lines of output text that start with any of these characters
+	ignore_strips = set('abcdefghijklmnopqrstuvwxyz') #Defines our rule for filtering out any lines of output text that contain only a single alphabetical character
 	for i, line in enumerate(lines): #Begins the check for un-necessary output text.
 		if '..' in line:
 			inside_random_section = True
 		if '..' in line and inside_random_section:
 			inside_random_section = False
 			continue
-		if line.startswith('.'):
+		if line.startswith(tuple(ignore_starts)) or line.strip() in ignore_strips: #Continues checking for un-necessary output text via the two earlier definitions
 			continue
-		if line.startswith('@'):
+		if line.strip() == '' and (i == 0 or lines [i - 1] != '=============================='): #Ensures proper spacing and new line return once the stream is done
 			continue
-		if line.startswith('#'):
-			continue
-		if line.startswith('$'):
-			continue
-		if line.startswith('%'):
-			continue
-		if line.startswith('^'):
-			continue
-		if line.startswith('&'):
-			continue
-		if line.startswith('*'):
-			continue
-		if line.startswith('('):
-			continue
-		if line.startswith(')'):
-			continue
-		if line.startswith('_'):
-			continue
-		if line.startswith('-'):
-			continue
-		if line.startswith('+'):
-			continue
-		if line.startswith('~'):
-			continue
-		if line.startswith('`'):
-			continue
-		if line.startswith('!'):			
-			continue
-		if line.startswith('{'):
-			continue
-		if line.startswith('}'):
-			continue
-		if line.startswith('['):
-			continue
-		if line.startswith(']'):
-			continue
-		if line.startswith('|'):
-			continue
-		if line.startswith('<'):
-			continue
-		if line.startswith('>'):
-			continue
-		if line.startswith('?'):
-			continue
-		if line.startswith(','):
-			continue
-		if line.startswith('/'):
-			continue
-		if line.startswith('1'):
-			continue
-		if line.startswith('2'):
-			continue
-		if line.startswith('3'):
-			continue
-		if line.startswith('4'):
-			continue
-		if line.startswith('5'):
-			continue
-		if line.startswith('6'):
-			continue
-		if line.startswith('7'):
-			continue
-		if line.startswith('8'):
-			continue
-		if line.startswith('9'):
-			continue
-		if line.strip() == '1400':
-			continue
-		if line.strip() == 'a':
-			continue
-		if line.strip() == 'b':
-			continue
-		if line.strip() == 'c':
-			continue
-		if line.strip() == 'd':
-			continue
-		if line.strip() == 'e':
-			continue
-		if line.strip() == 'f':
-			continue
-		if line.strip() == 'g':
-			continue
-		if line.strip() == 'h':
-			continue
-		if line.strip() == 'i':
-			continue
-		if line.strip() == 'j':
-			continue
-		if line.strip() == 'k':
-			continue
-		if line.strip() == 'l':
-			continue
-		if line.strip() == 'm':
-			continue
-		if line.strip() == 'n':
-			continue
-		if line.strip() == 'o':
-			continue
-		if line.strip() == 'p':
-			continue
-		if line.strip() == 'q':
-			continue
-		if line.strip() == 'r':
-			continue
-		if line.strip() == 's':
-			continue
-		if line.strip() == 't':
-			continue
-		if line.strip() == 'u':
-			continue
-		if line.strip() == 'v':
-			continue
-		if line.strip() == 'w':
-			continue
-		if line.strip() == 'x':
-			continue
-		if line.strip() == 'y':
-			continue
-		if line.strip() == 'z':
-			continue
-		if line.strip() == '' and (i == 0 or lines [i - 1] != '=============================='):
-			continue
-		if 1 <= len(line.strip()) < 9:
+		if 1 <= len(line.strip()) < 9: #Removes any lines with less than 9 characters
 			continue
 		if not inside_random_section: # Adds output lines to filtered_lines if not containing unnecessary information.
 			filtered_lines.append(line)
